@@ -6,12 +6,10 @@ const { getItems } = require('../controllers/clothingItems');
 const { auth } = require('../middlewares/auth');
 const { NOT_FOUND } = require('../utils/errors');
 
-// Public routes
 router.post('/signin', login);
 router.post('/signup', createUser);
 router.get('/items', getItems);
 
-// Protected routes
 router.use('/users', auth, userRouter);
 router.use('/items', auth, clothingItemRouter);
 
