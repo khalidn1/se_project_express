@@ -8,101 +8,40 @@ The back-end project is focused on creating a server for the WTWR application. Y
 - **Express.js** - Web application framework
 - **MongoDB** - NoSQL database
 - **Mongoose** - MongoDB object modeling tool
+- **JWT (JSON Web Tokens)** - User authentication and authorization
+- **bcryptjs** - Password hashing
+- **validator** - Data validation
+- **CORS** - Cross-origin resource sharing
 - **ESLint** - Code linting tool
 - **Prettier** - Code formatter
 - **Nodemon** - Development server with hot reload
 
 ## Core Features & API Endpoints
 
-### User Management
-- `GET /users` - Get all users
-- `GET /users/:userId` - Get user by ID
-- `POST /users` - Create a new user
+### Authentication
+- `POST /signup` - Register a new user
+- `POST /signin` - User login (returns JWT token)
+
+### User Management (Protected)
+- `GET /users/me` - Get current user profile
+- `PATCH /users/me` - Update current user profile
 
 ### Clothing Items
-- `GET /items` - Get all clothing items
-- `POST /items` - Create a new clothing item
-- `DELETE /items/:itemId` - Delete a clothing item
+- `GET /items` - Get all clothing items (public)
+- `POST /items` - Create a new clothing item (protected)
+- `DELETE /items/:itemId` - Delete a clothing item (protected, owner only)
 
-### Likes System
+### Likes System (Protected)
 - `PUT /items/:itemId/likes` - Like a clothing item
 - `DELETE /items/:itemId/likes` - Remove like from a clothing item
-
-## Data Models
-
-### User Schema
-```javascript
-{
-  name: String (required, 2-30 characters),
-  avatar: String (required, valid URL)
-}
-```
-
-### Clothing Item Schema
-```javascript
-{
-  name: String (required, 2-30 characters),
-  weather: String (required, enum: 'hot', 'warm', 'cold'),
-  imageUrl: String (required, valid URL),
-  owner: ObjectId (required, reference to User),
-  likes: [ObjectId] (array of User references),
-  createdAt: Date (default: Date.now)
-}
-```
-
-## Running the Project
-
-### Prerequisites
-- Node.js installed
-- MongoDB installed and running
-
-### Installation
-```bash
-npm install
-```
-
-### Development
-```bash
-npm run dev
-```
-Launches the server with hot reload on port **3001**
-
-### Production
-```bash
-npm run start
-```
-Launches the server on port **3001**
-
-### Linting
-```bash
-npm run lint
-```
-Checks code for linting errors
-
-```bash
-npm run lint -- --fix
-```
-Automatically fixes linting errors
-
-## Environment Setup
-
-1. **MongoDB Connection**: The server connects to `mongodb://127.0.0.1:27017/wtwr_db`
-2. **Port**: Server runs on port 3001 (configurable via PORT environment variable)
-3. **Temporary Authorization**: Currently uses hardcoded user ID for development
-
-## Error Handling
-
-The API includes comprehensive error handling for:
-- **400** - Invalid data or malformed requests
-- **404** - Resource not found
-- **500** - Internal server errors
-
 
 ## Project Structure
 ```
 ├── controllers/          # Route controllers
 │   ├── users.js         # User-related logic
 │   └── clothingItems.js # Clothing item logic
+├── middlewares/         # Custom middleware
+│   └── auth.js          # JWT authentication middleware
 ├── models/              # Database schemas
 │   ├── user.js          # User model
 │   └── clothingItem.js  # Clothing item model
@@ -111,7 +50,8 @@ The API includes comprehensive error handling for:
 │   ├── users.js         # User routes
 │   └── clothingItems.js # Item routes
 ├── utils/               # Utility functions
-│   └── errors.js        # Error constants
+│   ├── errors.js        # Error constants
+│   └── config.js        # Configuration settings
 ├── app.js               # Application entry point
 ├── package.json         # Dependencies and scripts
 └── README.md            # Project documentation
