@@ -15,7 +15,7 @@ The back-end project is focused on creating a server for the WTWR application. Y
 - **Frontend Repository**: `https://github.com/khalidn1/se_project_react`
 
 ### Project Pitch
-- **Video Presentation**: `https://www.loom.com/share/6f27df9ede3c403fa4cecdf98f3720e3`
+- **Video Presentation**: `https://www.loom.com/share/e77cac3b2f904b269f1d4826b0c35485`
 
 ---
 
