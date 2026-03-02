@@ -1,7 +1,6 @@
 const { Joi, celebrate } = require('celebrate');
 const validator = require('validator');
 
-// Custom validation for URL
 const validateURL = (value, helpers) => {
   if (validator.isURL(value)) {
     return value;
@@ -9,7 +8,6 @@ const validateURL = (value, helpers) => {
   return helpers.error('string.uri');
 };
 
-// User validation schemas
 const validateUserSignup = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30).required().messages({
@@ -57,7 +55,6 @@ const validateUserUpdate = celebrate({
   }),
 });
 
-// Clothing item validation schemas
 const validateClothingItem = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30).required().messages({
@@ -76,7 +73,6 @@ const validateClothingItem = celebrate({
   }),
 });
 
-// ID validation
 const validateId = celebrate({
   params: Joi.object().keys({
     itemId: Joi.string().hex().length(24).required().messages({

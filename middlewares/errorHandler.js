@@ -1,6 +1,5 @@
 const logger = require('../utils/logger');
 
-// Error constants
 const ERROR_CODES = {
   BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
@@ -10,7 +9,6 @@ const ERROR_CODES = {
   INTERNAL_SERVER_ERROR: 500,
 };
 
-// Custom error classes
 class ValidationError extends Error {
   constructor(message) {
     super(message);
@@ -51,11 +49,9 @@ class ConflictError extends Error {
   }
 }
 
-// Centralized error handler middleware
 const errorHandler = (err, req, res, next) => {
   let { statusCode = ERROR_CODES.INTERNAL_SERVER_ERROR, message } = err;
 
-  // Handle different types of errors
   if (err.name === 'CastError') {
     statusCode = ERROR_CODES.BAD_REQUEST;
     message = 'Invalid data format';
@@ -73,7 +69,6 @@ const errorHandler = (err, req, res, next) => {
     message = 'Token expired';
   }
 
-  // Log error details
   logger.error({
     message: err.message,
     stack: err.stack,
@@ -85,7 +80,6 @@ const errorHandler = (err, req, res, next) => {
     timestamp: new Date().toISOString(),
   });
 
-  // Don't expose sensitive error details in production
   if (statusCode === ERROR_CODES.INTERNAL_SERVER_ERROR) {
     message = 'An error occurred on the server';
   }
