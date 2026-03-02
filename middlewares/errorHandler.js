@@ -1,4 +1,9 @@
 const logger = require('../utils/logger');
+const ValidationError = require('../errors/ValidationError');
+const UnauthorizedError = require('../errors/UnauthorizedError');
+const ForbiddenError = require('../errors/ForbiddenError');
+const NotFoundError = require('../errors/NotFoundError');
+const ConflictError = require('../errors/ConflictError');
 
 const ERROR_CODES = {
   BAD_REQUEST: 400,
@@ -9,47 +14,7 @@ const ERROR_CODES = {
   INTERNAL_SERVER_ERROR: 500,
 };
 
-class ValidationError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = 'ValidationError';
-    this.statusCode = ERROR_CODES.BAD_REQUEST;
-  }
-}
-
-class UnauthorizedError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = 'UnauthorizedError';
-    this.statusCode = ERROR_CODES.UNAUTHORIZED;
-  }
-}
-
-class ForbiddenError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = 'ForbiddenError';
-    this.statusCode = ERROR_CODES.FORBIDDEN;
-  }
-}
-
-class NotFoundError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = 'NotFoundError';
-    this.statusCode = ERROR_CODES.NOT_FOUND;
-  }
-}
-
-class ConflictError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = 'ConflictError';
-    this.statusCode = ERROR_CODES.CONFLICT;
-  }
-}
-
-const errorHandler = (err, req, res, next) => {
+const errorHandler = (err, req, res) => {
   let { statusCode = ERROR_CODES.INTERNAL_SERVER_ERROR, message } = err;
 
   if (err.name === 'CastError') {

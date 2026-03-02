@@ -13,7 +13,7 @@ const logger = require('./utils/logger');
 const app = express();
 const { PORT = 3001, NODE_ENV = 'development' } = process.env;
 
-mongoose.connect('mongodb://127.0.0.1:27017/wtwr_db')
+mongoose.connect('mongodb://localhost:27017/wtwr_db')
   .then(() => {
     logger.info('Connected to MongoDB');
   })

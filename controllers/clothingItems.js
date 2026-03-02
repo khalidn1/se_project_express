@@ -1,9 +1,7 @@
 const ClothingItem = require('../models/clothingItem');
-const { 
-  ValidationError, 
-  NotFoundError, 
-  ForbiddenError 
-} = require('../middlewares/errorHandler');
+const ValidationError = require('../errors/ValidationError');
+const NotFoundError = require('../errors/NotFoundError');
+const ForbiddenError = require('../errors/ForbiddenError');
 const logger = require('../utils/logger');
 
 const getItems = (req, res, next) => {
