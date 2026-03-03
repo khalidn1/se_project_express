@@ -11,9 +11,11 @@ const { errorHandler } = require('./middlewares/errorHandler');
 const logger = require('./utils/logger');
 
 const app = express();
-const { PORT = 3001, NODE_ENV = 'development' } = process.env;
+const { PORT = 3001, NODE_ENV = 'development', MONGODB_URI } = process.env;
 
-mongoose.connect('mongodb://localhost:27017/wtwr_db')
+const mongoUri = MONGODB_URI || 'mongodb://localhost:27017/wtwr_db';
+
+mongoose.connect(mongoUri)
   .then(() => {
     logger.info('Connected to MongoDB');
   })
