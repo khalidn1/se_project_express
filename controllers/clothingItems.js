@@ -1,5 +1,5 @@
 const ClothingItem = require('../models/clothingItem');
-const ValidationError = require('../errors/ValidationError');
+const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 const ForbiddenError = require('../errors/ForbiddenError');
 const logger = require('../utils/logger');
@@ -19,11 +19,11 @@ const createItem = (req, res, next) => {
   ClothingItem.create({ name, weather, imageUrl, owner: req.user._id })
     .then((item) => {
       logger.info(`New clothing item created: ${item._id} by user ${req.user._id}`);
-      res.send(item);
+      res.status(201).send(item);
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
-        return next(new ValidationError('Invalid data provided'));
+      if (err.name === 'BadRequestError') {
+        return next(new BadRequestError('Invalid data provided'));
       }
       return next(err);
     });
@@ -49,7 +49,7 @@ const deleteItem = (req, res, next) => {
         return next(new NotFoundError('Item not found'));
       }
       if (err.name === 'CastError') {
-        return next(new ValidationError('Invalid item ID'));
+        return next(new BadRequestError('Invalid item ID'));
       }
       return next(err);
     });
@@ -71,7 +71,7 @@ const likeItem = (req, res, next) => {
         return next(new NotFoundError('Item not found'));
       }
       if (err.name === 'CastError') {
-        return next(new ValidationError('Invalid item ID'));
+        return next(new BadRequestError('Invalid item ID'));
       }
       return next(err);
     });
@@ -93,7 +93,7 @@ const dislikeItem = (req, res, next) => {
         return next(new NotFoundError('Item not found'));
       }
       if (err.name === 'CastError') {
-        return next(new ValidationError('Invalid item ID'));
+        return next(new BadRequestError('Invalid item ID'));
       }
       return next(err);
     });

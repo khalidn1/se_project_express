@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const ValidationError = require('../errors/ValidationError');
+const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 const ConflictError = require('../errors/ConflictError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
@@ -20,7 +20,7 @@ const getCurrentUser = (req, res, next) => {
         return next(new NotFoundError('User not found'));
       }
       if (err.name === 'CastError') {
-        return next(new ValidationError('Invalid user ID'));
+        return next(new BadRequestError('Invalid user ID'));
       }
       return next(err);
     });
@@ -35,14 +35,14 @@ const createUser = (req, res, next) => {
       const userResponse = user.toObject();
       delete userResponse.password;
       logger.info(`New user created: ${user.email}`);
-      res.send(userResponse);
+      res.status(201).send(userResponse);
     })
     .catch((err) => {
       if (err.code === 11000) {
         return next(new ConflictError('User with this email already exists'));
       }
-      if (err.name === 'ValidationError') {
-        return next(new ValidationError('Invalid data provided'));
+      if (err.name === 'BadRequestError') {
+        return next(new BadRequestError('Invalid data provided'));
       }
       return next(err);
     });
@@ -84,8 +84,8 @@ const updateProfile = (req, res, next) => {
       if (err.name === 'DocumentNotFoundError') {
         return next(new NotFoundError('User not found'));
       }
-      if (err.name === 'ValidationError') {
-        return next(new ValidationError('Invalid data provided'));
+      if (err.name === 'BadRequestError') {
+        return next(new BadRequestError('Invalid data provided'));
       }
       return next(err);
     });
