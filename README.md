@@ -8,8 +8,15 @@ The back-end project is focused on creating a server for the WTWR application. Y
 ## Project Links
 
 ### Live Application
-- **Backend API**: `http://35.227.47.77:3001`
+- **Backend API**: `http://khalidwtwr.jumpingcrab.com` (deployed on Google Cloud)
+- **API Subdomain**: `http://api.khalidwtwr.jumpingcrab.com`
 - **Local Development**: `http://localhost:3001`
+
+### Deployment
+- **VM Instance**: Google Cloud Platform (Ubuntu 24.04 LTS)
+- **Reverse Proxy**: nginx
+- **Database**: MongoDB
+- **Domain**: FreeDNS (jumpingcrab.com)
 
 ### Related Repositories
 - **Frontend Repository**: `https://github.com/khalidn1/se_project_react`
