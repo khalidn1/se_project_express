@@ -8,7 +8,7 @@ const { validateUserSignup, validateUserSignin } = require('../middlewares/valid
 router.post('/signin', validateUserSignin, login);
 router.post('/signup', validateUserSignup, createUser);
 
-router.get('/crash-test', auth, () => {
+router.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Server will crash now');
   }, 0);
