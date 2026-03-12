@@ -16,7 +16,7 @@ const logger = require('./utils/logger');
 const app = express();
 const { PORT = 3001, NODE_ENV = 'development', MONGODB_URI } = process.env;
 
-const mongoUri = MONGODB_URI || 'mongodb://localhost:27017/wtwr_db';
+const mongoUri = MONGODB_URI || 'mongodb://127.0.0.1:27017/wtwr_db';
 
 mongoose.connect(mongoUri)
   .then(() => {
