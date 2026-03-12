@@ -8,8 +8,8 @@ The back-end project is focused on creating a server for the WTWR application. Y
 ## Project Links
 
 ### Live Application
-- **Backend API**: `http://khalidwtwr.jumpingcrab.com` (deployed on Google Cloud)
-- **API Subdomain**: `http://api.khalidwtwr.jumpingcrab.com`
+- **Backend API**: `http://khalidwtwr.home.kg` (deployed on Google Cloud)
+- **API Subdomain**: `http://api.khalidwtwr.home.kg`
 - **Local Development**: `http://localhost:3001`
 
 ### Deployment

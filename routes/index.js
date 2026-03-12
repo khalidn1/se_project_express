@@ -15,9 +15,9 @@ router.get('/crash-test', () => {
 });
 
 router.use('/users', auth, userRouter);
-router.use('/items', auth, clothingItemRouter);
+router.use('/items', clothingItemRouter);
 
-router.use('*', auth, (req, res) => {
+router.use('*', (req, res) => {
   res.status(404).send({ message: 'Requested resource not found' });
 });
 
