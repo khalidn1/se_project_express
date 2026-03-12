@@ -5,6 +5,7 @@ const NotFoundError = require('../errors/NotFoundError');
 const ConflictError = require('../errors/ConflictError');
 
 const errorHandler = (err, req, res, next) => {
+  
   console.error(err);
   const statusCode = err.statusCode || 500;
   const message = statusCode === 500 ? "An error has occurred on the server" : err.message;
